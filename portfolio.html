@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elian Ashun | UI/UX Designer</title>
+  <link rel="icon" href="moi.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #f9f9f9;
+      color: #333;
+      padding: 20px;
+      position: relative;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #f1f1f1;
+    }
+    body.dark-mode .skills div {
+      background: #2b2b2b;
+      color: #f1f1f1;
+    }
+    body.dark-mode .skills div:hover {
+      background: #3a3a3a;
+    }
+    body.dark-mode .project {
+      background: #2c2c2c;
+      color: #f1f1f1;
+    }
+    body.dark-mode .project-details {
+      background: #2c2c2c;
+      color: #f1f1f1;
+    }
+    body.dark-mode .social-icon {
+      background: #2b2b2b;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: slideDown 0.8s ease;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff5f6d, #ffc371);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #ff5f6d;
+      transition: 0.3s ease;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      margin: 40px 0;
+      animation: fadeIn 1s ease;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.3s forwards;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #666;
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.6s forwards;
+    }
+    body.dark-mode .hero p {
+      color: #ccc;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .tools-container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .tools, .skills {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .tools img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    .tools img:hover {
+      filter: grayscale(0%);
+    }
+    .skills div {
+      padding: 10px 20px;
+      background: #eee;
+      border-radius: 20px;
+      transition: transform 0.3s ease, background 0.3s ease;
+      font-weight: 500;
+    }
+    .skills div:hover {
+      transform: scale(1.05);
+      background: #ddd;
+    }
+
+    .profile-animation {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-left: auto;
+    }
+    
+    .circle-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #ff5f6d;
+      animation: circleGrow 1.5s ease-out forwards;
+    }
+    
+    .profile-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fadeIn 0.5s ease 1.5s forwards;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .animated-info {
+      flex: 1;
+      max-width: 400px;
+      margin-left: 40px;
+      animation: slideInRight 1s ease;
+    }
+    .animated-info h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #ff5f6d;
+      font-weight: 600;
+    }
+    .animated-info p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+    .animated-info ul {
+      list-style-type: none;
+    }
+    .animated-info li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+    .animated-info li:before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #ff5f6d;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .project {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      cursor: pointer;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+      transition: all 0.3s ease;
+    }
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+    .project img {
+      width: 100%;
+      border-radius: 10px;
+      height: auto;
+      object-fit: contain;
+      margin-top: 15px;
+    }
+
+    .project-details {
+      display: none;
+      background: #fff;
+      padding: 30px;
+      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      animation: fadeInExpand 0.3s ease;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease, margin 0.5s ease;
+    }
+    .project-details.active {
+      display: block;
+      max-height: 2000px;
+      opacity: 1;
+    }
+    .project-details h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #ff5f6d;
+      font-weight: 600;
+    }
+    .project-details p {
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .project-details ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .project-details li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .project-details img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      margin: 15px auto;
+      display: block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .project-details img:hover {
+      transform: scale(1.03);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .social-icon.linkedin {
+      color: #0A66C2;
+    }
+    .social-icon.twitter {
+      color: #000;
+    }
+    .social-icon.whatsapp {
+      color: #25D366;
+    }
+    .social-icon.email {
+      color: #D44638;
+    }
+
+    .email-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .email-link {
+      color: #ff5f6d;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .email-link:hover {
+      text-decoration: underline;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 10px 15px;
+      background: #ff5f6d;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    #scrollTopBtn:hover {
+      background: #e94b59;
+    }
+
+    .dark-toggle {
+      margin-left: 10px;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+      font-size: 14px;
+    }
+    .dark-toggle:hover {
+      background: #555;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes circleGrow {
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        border-color: #ff5f6d;
+      }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInExpand {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 15px;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+      .tools-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      .profile-animation {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+      .animated-info {
+        margin-left: 0;
+        margin-top: 30px;
+      }
+      .project-details img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">EA</div>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Connect</a>
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Elian Ashun</h1>
+    <p>UI/UX Designer – I design digital products that solve real human problems.</p>
+  </div>
+
+  <section id="tools">
+    <h2>Tools I Use</h2>
+    <div class="tools-container">
+      <div class="tools">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" title="Figma">
+        <img src="Adobe_Photoshop_CC_icon.svg-removebg-preview.png" alt="Photoshop" title="Photoshop">
+        <img src="xd-removebg-preview.png" alt="Adobe XD" title="Adobe XD">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" title="Illustrator">
+        <img src="after-removebg-preview.png" alt="After Effects" title="After Effects">
+      </div>
+      
+      <div class="animated-info">
+        <h3>Design Philosophy</h3>
+        <p>I believe in creating interfaces that are not just beautiful but intuitive and accessible. My approach combines:</p>
+        <ul>
+          <li>User-centered design principles</li>
+          <li>Data-driven decision making</li>
+          <li>Pixel-perfect attention to detail</li>
+          <li>Continuous iteration based on feedback</li>
+        </ul>
+      </div>
+      
+      <div class="profile-animation">
+        <div class="circle-animation"></div>
+        <img src="mypfplogo.png" class="profile-image" alt="Elian Ashun">
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>My Skills</h2>
+    <div class="skills">
+      <div>User Interaction</div>
+      <div>Prototyping</div>
+      <div>Wireframing</div>
+      <div>User Research</div>
+      <div>Responsive Design</div>
+      <div>Visual Design</div>
+      <div>Usability Testing</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="projects">
+      <div class="project" onclick="toggleDetails('fit')">
+        <h3>FitLife</h3>
+        <img src="fitgirluinobg.png" alt="FitLife Mockup">
+      </div>
+      <div class="project" onclick="toggleDetails('eco')">
+        <h3>PulseLane</h3>
+        <img src="pulselaneee.png" alt="PulseLane Mockup">
+      </div>
+      <div class="project" onclick="toggleDetails('edu')">
+        <h3>EduConnect</h3>
+        <img src="educonnect.png" alt="EduConnect Mockup">
+      </div>
+    </div>
+
+    <div id="fit-details" class="project-details"></div>
+    <div id="eco-details" class="project-details"></div>
+    <div id="edu-details" class="project-details"></div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Let's Connect</h2>
+    <div class="email-container">
+      <i class="fas fa-envelope"></i>
+      <a href="mailto:elianashun2@gmail.com" class="email-link">elianashun2@gmail.com</a>
+    </div>
+    
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/crimson-ui-556873242?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-icon linkedin">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://x.com/CRimSon_UX?t=JoJg6lsonnUHpy-Pf1yW8Q&s=09" target="_blank" class="social-icon x-twitter">
+        <img src="xlogo-removebg-preview.png" width="30" alt="">
+      </a>
+      <a href="https://wa.me/233509383674" target="_blank" class="social-icon whatsapp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+  </section>
+
+  <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+  <script>
+    // Initialize project details on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('fit-details').innerHTML = projects.fit.content;
+      document.getElementById('eco-details').innerHTML = projects.eco.content;
+      document.getElementById('edu-details').innerHTML = projects.edu.content;
+    });
+
+    const projects = {
+      fit: {
+        content: `
+          <h3>FitLife – Fitness Motivation & Tracking</h3>
+          <p>FitLife is a mobile fitness app designed to help users stay consistent through gamified challenges, daily health tracking, and personalized routines. The app transforms fitness journeys into engaging experiences with social accountability features.</p>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+            <img src="gym.png" alt="FitLife Screenshot 1">
+            <img src="fitgirluinobg.png" alt="FitLife Screenshot 2">
+          </div>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">Key Features</h4>
+          <ul>
+            <li><strong>Daily streak system</strong> with visual progress tracking</li>
+            <li><strong>Custom workout plans</strong> tailored to individual goals</li>
+            <li><strong>Vibrant UI design</strong> to drive motivation and engagement</li>
+            <li><strong>Social challenges</strong> for community accountability</li>
+            <li><strong>Onboarding flow</strong> that adapts to body type and fitness level</li>
+          </ul>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">Design Process</h4>
+          <p>After conducting user research with fitness enthusiasts, I identified key pain points around motivation and consistency. The solution combines behavioral psychology principles with an energizing visual language to create an app that users want to return to daily.</p>
+        `
+      },
+      eco: {
+        content: `
+          <h3>PulseLane – Lifestyle & Fitness Tech Brand</h3>
+          <p>PulseLane offers premium wearable tech and accessories with a synced fitness tracking experience. The project included product design for the mobile app, e-commerce site, and smartwatch interface.</p>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+            <img src="pulselaneui.png" alt="PulseLane Screenshot 1">
+            <img src="pulselaneee.png" alt="PulseLane Screenshot 2">
+          </div>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">Key Components</h4>
+          <ul>
+            <li><strong>Product UI</strong> for the online store and mobile app</li>
+            <li><strong>Fitness dashboard</strong> with comprehensive metrics</li>
+            <li><strong>Device pairing</strong> and synchronization flows</li>
+            <li><strong>Brand identity</strong> across digital touchpoints</li>
+            <li><strong>Responsive design</strong> for all device sizes</li>
+          </ul>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">Design Approach</h4>
+          <p>The design system balances premium aesthetics with functional clarity, using a restrained color palette and ample white space to highlight product imagery while maintaining excellent usability across platforms.</p>
+        `
+      },
+      edu: {
+        content: `
+          <h3>EduConnect – Education App for African Students</h3>
+          <p>EduConnect helps students across Africa access curated lessons, discussion spaces, and educational resources. Designed mobile-first for low-bandwidth environments while maintaining a modern, engaging interface.</p>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+            <img src="eduu.png" alt="EduConnect Screenshot 1">
+            <img src="educonnect.png"  alt="EduConnect Screenshot 2">
+          </div>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">Core Features</h4>
+          <ul>
+            <li><strong>Mobile-first UI</strong> optimized for various screen sizes</li>
+            <li><strong>Interactive lessons</strong> with quizzes and progress tracking</li>
+            <li><strong>Community forums</strong> for peer learning</li>
+            <li><strong>Offline functionality</strong> for limited connectivity</li>
+            <li><strong>Gamified elements</strong> to encourage consistent learning</li>
+          </ul>
+          
+          <h4 style="margin: 20px 0 10px; color: #ff5f6d;">User-Centered Solutions</h4>
+          <p>Through extensive user testing with students across multiple African countries, we developed an interface that works seamlessly on low-end devices while providing a rich learning experience. The color scheme and typography were carefully chosen for readability in various lighting conditions.</p>
+        `
+      }
+    };
+
+    function toggleDetails(key) {
+      const detailsElement = document.getElementById(`${key}-details`);
+      const isActive = detailsElement.classList.contains('active');
+      
+      // Close all project details first
+      document.querySelectorAll('.project-details').forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      // If clicked project wasn't active, open it
+      if (!isActive) {
+        detailsElement.classList.add('active');
+        detailsElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    window.onscroll = function () {
+      scrollTopBtn.style.display = window.scrollY > 200 ? "block" : "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+
+</body>
+</html>
